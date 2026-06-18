@@ -5,6 +5,7 @@ import Theme from "@/components/sections/Theme";
 import Programme from "@/components/sections/Programme";
 import Orateurs from "@/components/sections/Orateurs";
 import InfosPratiques from "@/components/sections/InfosPratiques";
+import Inscription from "@/components/sections/Inscription";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Programme />
       <Orateurs />
       <InfosPratiques />
+      <Inscription />
     </main>
   );
 }
