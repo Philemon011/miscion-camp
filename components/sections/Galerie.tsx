@@ -1,10 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
-const row1 = Array.from({ length: 8 }, (_, i) => `https://placehold.co/600x400/png?text=${i + 1}`);
-const row2 = Array.from({ length: 8 }, (_, i) => `https://placehold.co/600x400/png?text=${i + 9}`);
-const row3 = Array.from({ length: 8 }, (_, i) => `https://placehold.co/600x400/png?text=${i + 17}`);
+const row1 = [
+  "/images/forma-profil.jpg",
+  "/images/forma-profil2.jpg",
+  "/images/forma-profil3.jpg",
+];
+const row2 = [
+  "/images/forma-profil.jpg",
+  "/images/forma-profil2.jpg",
+  "/images/forma-profil3.jpg",
+];
+const row3 = [
+  "/images/forma-profil.jpg",
+  "/images/forma-profil2.jpg",
+  "/images/forma-profil3.jpg",
+];
 
 function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direction: "left" | "right"; speed?: number }) {
   const anim = direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
@@ -15,7 +28,9 @@ function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direc
         style={{ animationDuration: `${speed}s` }}
       >
         {[...images, ...images].map((src, i) => (
-          <img key={i} src={src} alt="Souvenir MISCION" className="h-40 md:h-56 w-64 md:w-80 object-cover rounded-xl shrink-0" />
+          <div key={i} className="relative h-40 md:h-56 w-64 md:w-80 shrink-0 rounded-xl overflow-hidden">
+            <Image src={src} alt="Souvenir MISCION" fill className="object-cover" sizes="320px" />
+          </div>
         ))}
       </div>
     </div>
