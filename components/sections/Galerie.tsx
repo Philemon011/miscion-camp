@@ -4,19 +4,21 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const row1 = [
-  "/images/forma-profil.jpg",
-  "/images/forma-profil2.jpg",
-  "/images/forma-profil3.jpg",
+  "/images/img2.jpg",
+  "/images/img3.jpg",
+  "/images/img4.jpg",
+  "/images/img5.jpg",
 ];
 const row2 = [
-  "/images/forma-profil.jpg",
-  "/images/forma-profil2.jpg",
-  "/images/forma-profil3.jpg",
+  "/images/img2.jpg",
+  "/images/img3.jpg",
+  "/images/img4.jpg",
+  "/images/img5.jpg",
 ];
 const row3 = [
-  "/images/forma-profil.jpg",
-  "/images/forma-profil2.jpg",
-  "/images/forma-profil3.jpg",
+  "/images/img2.jpg",
+  "/images/img3.jpg",
+  "/images/img4.jpg",
 ];
 
 function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direction: "left" | "right"; speed?: number }) {

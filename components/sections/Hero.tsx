@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Variants } from "framer-motion";
 import ImageCarousel from "../ImageCarousel";
+import Link from 'next/link'
 
 const container = {
   hidden: {},
@@ -50,23 +51,28 @@ export default function Hero() {
             className="border-2 border-dark/20 text-dark font-body font-medium px-8 py-4 rounded-full">
             Une question ? WhatsApp
           </motion.a>
+          {/* <Link href="/jy-serai">
+            <button className="bg-[#FFBD3F] text-[#301D0F] font-bold px-6 py-3 rounded-xl uppercase">
+              Générer mon image
+            </button>
+          </Link> */}
         </motion.div>
 
         <ImageCarousel
-  images={[
-    "/images/forma-profil.jpg",
-    "/images/forma-profil2.jpg",
-    "/images/forma-profil3.jpg",
-    // "/images/img3.jpg",
-    // "/images/img4.jpg",
-    // "/images/img5.jpg",
-    // "/images/essai.png",
-    // "/images/quote-1.jpg",
-    // "/images/quote-3.jpg",
-    // "/images/pasts/past3.png",
-  ]}
-  alt="Jeunes au camp MISCION"
-/>
+          images={[
+            "/images/forma-profil.jpg",
+            "/images/forma-profil2.jpg",
+            "/images/forma-profil3.jpg",
+            // "/images/img3.jpg",
+            // "/images/img4.jpg",
+            // "/images/img5.jpg",
+            // "/images/essai.png",
+            // "/images/quote-1.jpg",
+            // "/images/quote-3.jpg",
+            // "/images/pasts/past3.png",
+          ]}
+          alt="Jeunes au camp MISCION"
+        />
       </motion.div>
     </section>
   );
