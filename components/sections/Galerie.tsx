@@ -8,6 +8,8 @@ const row1 = [
   "/images/img3.jpg",
   "/images/img4.jpg",
   "/images/img5.jpg",
+  "/images/img6.jpg",
+  "/images/img7.jpg",
 ];
 const row2 = [
   "/images/img2.jpg",
