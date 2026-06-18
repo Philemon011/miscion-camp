@@ -61,6 +61,7 @@ export default function Hero() {
         <ImageCarousel
           images={[
             "/images/forma-profil.jpg",
+            "/images/tsh.jpg",
             "/images/forma-profil2.jpg",
             "/images/forma-profil3.jpg",
             // "/images/img3.jpg",
