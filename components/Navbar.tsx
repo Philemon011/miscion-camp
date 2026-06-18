@@ -14,18 +14,18 @@ const navLinks = [
   { label: "FAQ", href: "faq" },
 ];
 
-const menuVariants : Variants = {
+const menuVariants: Variants = {
   hidden: { opacity: 0, y: -20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
   exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
 };
 
-const linkVariants: Variants = {
+const linkVariants : Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
 };
 
-const linkItem: Variants = {
+const linkItem : Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
@@ -134,8 +134,8 @@ export default function Navbar() {
               ))}
 
               <motion.li variants={linkItem}>
-                <a
-                  href="TON_LIEN_GOOGLE_FORM"
+                
+                <a  href="TON_LIEN_GOOGLE_FORM"
                   className="inline-flex bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full mt-4"
                 >
                   Je m'inscris

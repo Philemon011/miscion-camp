@@ -18,6 +18,7 @@ body {
   background-color: var(--color-cream);
   color: var(--color-dark);
   font-family: var(--font-body);
+  overflow-x: hidden;
 }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
