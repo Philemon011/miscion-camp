@@ -43,6 +43,17 @@ export const metadata: Metadata = {
       "Du 03 au 08 août 2026 à Cotonou. 6 jours pour t'élever au-dessus de tout ce qui t'a retenu.",
     images: ["/og-image.jpg"],
   },
+
+
+  icons: {
+  icon: [
+    { url: "/favicon.ico" },
+    { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+  ],
+  apple: [
+    { url: "/apple-touch-icon.png", sizes: "180x180" },
+  ],
+},
 };
 
 export default function RootLayout({
