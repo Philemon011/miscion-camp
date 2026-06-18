@@ -7,7 +7,7 @@ const item : Variants = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 
 
 export default function Inscription() {
   return (
-    <section className="relative bg-dark px-6 py-24 md:py-32 overflow-hidden">
+    <section id="inscription" className="relative bg-dark px-6 py-24 md:py-32 overflow-hidden">
       <div className="absolute -top-24 -left-24 w-80 h-80 bg-viral/10 rounded-full blur-3xl" aria-hidden />
       <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" aria-hidden />
 

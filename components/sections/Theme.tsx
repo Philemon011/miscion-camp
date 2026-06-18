@@ -15,7 +15,7 @@ const facets = [
 
 export default function Theme() {
   return (
-    <section className="relative bg-cream px-6 py-20 md:py-28 overflow-hidden">
+    <section id="theme" className="relative bg-cream px-6 py-20 md:py-28 overflow-hidden">
       <Feather className="absolute -top-10 right-0 w-72 h-72 text-dark/5 -rotate-12" aria-hidden />
 
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative max-w-4xl mx-auto text-center">

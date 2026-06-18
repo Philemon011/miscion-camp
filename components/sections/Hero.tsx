@@ -17,7 +17,7 @@ const item: Variants = {
 
 export default function Hero() {
   return (
-    <section className="relative bg-cream overflow-hidden px-6 pt-28 pb-20 md:pt-36 md:pb-28">
+    <section id="hero" className="relative bg-cream overflow-hidden px-6 pt-28 pb-20 md:pt-36 md:pb-28">
       <div className="absolute -top-20 -right-20 w-72 h-72 bg-viral/20 rounded-full blur-3xl" aria-hidden />
       <div className="absolute bottom-0 -left-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl" aria-hidden />
 

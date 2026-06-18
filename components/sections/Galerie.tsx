@@ -47,7 +47,7 @@ function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direc
 
 export default function Galerie() {
     return (
-        <section className="relative bg-cream py-20 md:py-28 overflow-hidden">
+        <section id="galerie" className="relative bg-cream py-20 md:py-28 overflow-hidden">
             <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}

@@ -22,6 +22,7 @@ const item :Variants = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0
 
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
+    <section id="countdown" className="bg-cream px-6 py-20 md:py-28">
     <motion.div variants={item} className="flex flex-col items-center">
       <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-sm flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="popLayout">
@@ -39,6 +40,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
       </div>
       <span className="mt-3 font-body text-xs md:text-sm uppercase tracking-widest text-dark">{label}</span>
     </motion.div>
+    </section>
   );
 }
 

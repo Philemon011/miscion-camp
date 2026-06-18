@@ -18,7 +18,7 @@ const speakers = [
 
 export default function Orateurs() {
   return (
-    <section className="bg-cream px-6 py-20 md:py-28">
+    <section id="orateurs" className="bg-cream px-6 py-20 md:py-28">
       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="max-w-5xl mx-auto">
         <div className="text-center">
           <motion.p variants={item} className="font-body text-viral text-sm font-semibold tracking-[0.2em] uppercase">Les orateurs</motion.p>

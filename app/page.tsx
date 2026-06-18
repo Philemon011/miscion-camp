@@ -8,6 +8,8 @@ import InfosPratiques from "@/components/sections/InfosPratiques";
 import Inscription from "@/components/sections/Inscription";
 import Temoignages from "@/components/sections/Temoignages";
 import Galerie from "@/components/sections/Galerie";
+import FAQ from "@/components/sections/FAQ";
+import Footer from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -22,6 +24,8 @@ export default function Home() {
       <Inscription />
       <Temoignages/>
       <Galerie />
+      <FAQ />
+      <Footer />
     </main>
   );
 }

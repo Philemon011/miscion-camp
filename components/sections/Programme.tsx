@@ -43,7 +43,7 @@ export default function Programme() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="bg-cream px-6 py-20 md:py-28">
+    <section id="programme" className="bg-cream px-6 py-20 md:py-28">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
