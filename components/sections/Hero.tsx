@@ -63,8 +63,6 @@ export default function Hero() {
     // "/images/essai.png",
     // "/images/quote-1.jpg",
     // "/images/quote-3.jpg",
-    // "/images/pasts/past1.png",
-    // "/images/pasts/past2.png",
     // "/images/pasts/past3.png",
   ]}
   alt="Jeunes au camp MISCION"
