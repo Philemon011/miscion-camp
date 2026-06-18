@@ -7,6 +7,7 @@ import Orateurs from "@/components/sections/Orateurs";
 import InfosPratiques from "@/components/sections/InfosPratiques";
 import Inscription from "@/components/sections/Inscription";
 import Temoignages from "@/components/sections/Temoignages";
+import Galerie from "@/components/sections/Galerie";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <InfosPratiques />
       <Inscription />
       <Temoignages/>
+      <Galerie />
     </main>
   );
 }
