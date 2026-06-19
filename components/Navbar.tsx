@@ -155,7 +155,7 @@ export default function Navbar() {
                 </motion.li>
               ))}
 
-              <motion.li variants={linkItem}>
+              {/* <motion.li variants={linkItem}>
 
                 <a href="/visuel"
                   onClick={() => setOpen(false)}
@@ -163,7 +163,7 @@ export default function Navbar() {
                 >
                   Mon visuel
                 </a>
-              </motion.li>
+              </motion.li> */}
 
               <motion.li variants={linkItem}>
 
