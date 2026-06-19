@@ -43,7 +43,7 @@ export default function Hero() {
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,189,63,0.6)" }}
             transition={{ duration: 0.3 }}
             className="bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full">
-            Je m'inscris maintenant
+            Je veux m'inscris maintenant !
           </motion.a>
           <motion.a href="/visuel"
             whileHover={{ borderColor: "#301D0F" }}
