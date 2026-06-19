@@ -16,7 +16,7 @@ const item: Variants = {
 
 const colors = [
   { id: "noir", label: "Noir", image: "/images/tshirt/tshirt-noir.png", hex: "#1A1A1A" },
-  { id: "beige", label: "Beige", image: "/images/tshirt/tshirt-beige.png", hex: "#D4B896" },
+  { id: "beige", label: "Beige", image: "/images/tshirt/tshirt-beige.png", hex: "#f4f1b6" },
   { id: "turquoise", label: "Vert Turquoise", image: "/images/tshirt/tshirt-turquoise.png", hex: "#2ABFBF" },
 ];
 
