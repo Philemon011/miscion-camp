@@ -34,7 +34,7 @@ const linkItem: Variants = {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-   const pathname = usePathname();
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
@@ -44,16 +44,16 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id: string) => {
-  setOpen(false);
-  if (pathname === "/") {
-    // On est sur la home — scroll direct
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  } else {
-    // On est sur une autre page — navigue vers home + ancre
-    router.push(`/#${id}`);
-  }
-};
+    setOpen(false);
+    if (pathname === "/") {
+      // On est sur la home — scroll direct
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // On est sur une autre page — navigue vers home + ancre
+      router.push(`/#${id}`);
+    }
+  };
 
   return (
     <>
@@ -66,24 +66,24 @@ export default function Navbar() {
       >
         {/* Logo PNG */}
         <button
-  onClick={() => {
-    setOpen(false);
-    if (pathname === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      router.push("/");
-    }
-  }}
-  className="relative h-8 w-24 md:h-9 md:w-32 shrink-0"
->
-  <Image
-    src="/images/logo.png"
-    alt="MISCION Logo"
-    fill
-    className="object-contain object-left"
-    priority
-  />
-</button>
+          onClick={() => {
+            setOpen(false);
+            if (pathname === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              router.push("/");
+            }
+          }}
+          className="relative h-8 w-24 md:h-9 md:w-32 shrink-0"
+        >
+          <Image
+            src="/images/logo.png"
+            alt="MISCION Logo"
+            fill
+            className="object-contain object-left"
+            priority
+          />
+        </button>
 
         {/* Liens desktop */}
         <div className="hidden md:flex items-center gap-8">

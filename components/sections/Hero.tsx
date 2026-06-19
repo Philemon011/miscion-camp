@@ -43,13 +43,13 @@ export default function Hero() {
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,189,63,0.6)" }}
             transition={{ duration: 0.3 }}
             className="bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full">
-            Je m'inscris
+            Je m'inscris maintenant
           </motion.a>
-          <motion.a href="https://wa.me/22900000000"
+          <motion.a href="/visuel"
             whileHover={{ borderColor: "#301D0F" }}
             transition={{ duration: 0.3 }}
             className="border-2 border-dark/20 text-dark font-body font-medium px-8 py-4 rounded-full">
-            Une question ? WhatsApp
+            Générer mon image
           </motion.a>
           {/* <Link href="/jy-serai">
             <button className="bg-[#FFBD3F] text-[#301D0F] font-bold px-6 py-3 rounded-xl uppercase">
