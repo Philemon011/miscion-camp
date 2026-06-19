@@ -14,6 +14,8 @@ const PHOTO_ZONE = {
 const ZOOM_MIN = 0.5
 const ZOOM_MAX = 3
 
+const photoImgRef = useRef<HTMLImageElement>(null);
+
 export default function JySeraiModule() {
 
   // ─── States ───────────────────────────────────────────────

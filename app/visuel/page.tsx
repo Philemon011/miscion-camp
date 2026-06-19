@@ -4,7 +4,9 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, Download, RefreshCw, ZoomIn, ZoomOut } from "lucide-react";
 
-const CANVAS_SIZE = 1080;
+// Le frame source fait 2160x2160px — on exporte à cette résolution native
+// pour ne jamais upscaler ni downscaler le PNG du frame (perte de netteté).
+const CANVAS_SIZE = 2160;
 const FRAME_SRC = "/images/frame.png";
 
 export default function VisuelPage() {
@@ -16,7 +18,10 @@ export default function VisuelPage() {
   const [photoSrc, setPhotoSrc] = useState<string | null>(null);
   const [photoDims, setPhotoDims] = useState({ w: 0, h: 0 });
   const [scale, setScale] = useState(1);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
+  // offset est exprimé en PIXELS RELATIFS À UN CONTENEUR DE TAILLE 1 (fraction),
+  // ainsi il est indépendant de la taille réelle du conteneur à l'écran
+  // et reproductible à l'identique sur le canvas d'export.
+  const [offset, setOffset] = useState({ x: 0, y: 0 }); // fraction de la taille du conteneur
   const [isDownloading, setIsDownloading] = useState(false);
   const [isDraggingFile, setIsDraggingFile] = useState(false);
 
@@ -62,12 +67,18 @@ export default function VisuelPage() {
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!isDragging.current) return;
+    if (!isDragging.current || !containerRef.current) return;
     const dx = e.clientX - lastPos.current.x;
     const dy = e.clientY - lastPos.current.y;
     lastPos.current = { x: e.clientX, y: e.clientY };
-    // Aucun clamping — liberté totale de mouvement
-    setOffset((prev) => ({ x: prev.x + dx, y: prev.y + dy }));
+
+    // On convertit le delta en pixels écran -> fraction de la taille du conteneur,
+    // pour que l'offset stocké soit indépendant de la résolution d'affichage.
+    const containerSize = containerRef.current.offsetWidth || 1;
+    setOffset((prev) => ({
+      x: prev.x + dx / containerSize,
+      y: prev.y + dy / containerSize,
+    }));
     e.preventDefault();
   };
 
@@ -75,76 +86,107 @@ export default function VisuelPage() {
 
   // Chargement photo — stocke les dimensions naturelles
   const handleFile = (file: File) => {
-  if (!file.type.startsWith("image/")) return;
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const src = e.target?.result as string;
-    const img = new Image();
-    img.onload = () => setPhotoDims({ w: img.naturalWidth, h: img.naturalHeight });
-    img.src = src;
-    setPhotoSrc(src);
-    setScale(0.8); // ← était 1, maintenant 0.8
-    setOffset({ x: 0, y: 0 });
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const src = e.target?.result as string;
+      const img = new Image();
+      img.onload = () => setPhotoDims({ w: img.naturalWidth, h: img.naturalHeight });
+      img.src = src;
+      setPhotoSrc(src);
+      setScale(1);
+      setOffset({ x: 0, y: 0 });
+    };
+    reader.readAsDataURL(file);
   };
-  reader.readAsDataURL(file);
-};
 
-  // Calcul cover pour le canvas export uniquement
-  const getCoverDimensions = (natW: number, natH: number, size: number) => {
+  /**
+   * Calcule le rectangle de dessin de la photo pour UNE taille de conteneur donnée
+   * (containerSize en px). Cette fonction est LA SOURCE UNIQUE DE VÉRITÉ pour la
+   * géométrie : l'aperçu CSS et le canvas d'export l'utilisent tous les deux,
+   * ce qui garantit qu'ils affichent exactement la même chose.
+   *
+   * Logique : la photo "couvre" d'abord le conteneur (comme object-fit: cover),
+   * puis on applique le zoom (scale) et le déplacement (offset, en fraction du
+   * conteneur) autour du CENTRE DU CONTENEUR — exactement comme le ferait
+   * `transform: translate(...) scale(...)` sur un élément déjà centré et cover.
+   */
+  const computeDrawRect = (
+    natW: number,
+    natH: number,
+    containerSize: number
+  ) => {
     const aspect = natW / natH;
-    const w = aspect > 1 ? size * aspect : size;
-    const h = aspect > 1 ? size : size / aspect;
-    return { w, h, x: (size - w) / 2, y: (size - h) / 2 };
+    // Taille "cover" de base (remplit le carré container x container)
+    const baseW = aspect >= 1 ? containerSize * aspect : containerSize;
+    const baseH = aspect >= 1 ? containerSize : containerSize / aspect;
+
+    const w = baseW * scale;
+    const h = baseH * scale;
+
+    // Centre du conteneur + déplacement (offset est une fraction de containerSize)
+    const cx = containerSize / 2 + offset.x * containerSize;
+    const cy = containerSize / 2 + offset.y * containerSize;
+
+    return { x: cx - w / 2, y: cy - h / 2, w, h };
   };
 
-  // Génère et télécharge — canvas uniquement ici, jamais pendant l'interaction
+  // Génère et télécharge — utilise EXACTEMENT la même géométrie que l'aperçu
   const generateAndDownload = useCallback(async () => {
-    if (!photoSrc || !containerRef.current) return;
+    if (!photoSrc) return;
     setIsDownloading(true);
 
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    try {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    canvas.width = CANVAS_SIZE;
-    canvas.height = CANVAS_SIZE;
-    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+      canvas.width = CANVAS_SIZE;
+      canvas.height = CANVAS_SIZE;
+      ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+      // Fond blanc de sécurité : si jamais la photo ne couvre pas 100% du canvas
+      // (cas limite à scale très réduit), on évite la transparence "blanche" au bord.
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    const photo = new Image();
-    photo.src = photoSrc;
-    await new Promise((r) => (photo.onload = r));
+      const photo = new Image();
+      photo.src = photoSrc;
+      await new Promise((resolve, reject) => {
+        photo.onload = resolve;
+        photo.onerror = reject;
+      });
 
-    const containerSize = containerRef.current.offsetWidth;
-    const ratio = CANVAS_SIZE / containerSize;
-    const center = CANVAS_SIZE / 2;
+      const rect = computeDrawRect(
+        photo.naturalWidth,
+        photo.naturalHeight,
+        CANVAS_SIZE
+      );
+      ctx.drawImage(photo, rect.x, rect.y, rect.w, rect.h);
 
-    const cover = getCoverDimensions(
-      photo.naturalWidth,
-      photo.naturalHeight,
-      CANVAS_SIZE
-    );
+      const frame = new Image();
+      frame.src = FRAME_SRC;
+      await new Promise((resolve, reject) => {
+        frame.onload = resolve;
+        frame.onerror = reject;
+      });
+      ctx.drawImage(frame, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    // Reproduit exactement ce que l'utilisateur voit dans l'aperçu
-    const finalW = cover.w * scale;
-    const finalH = cover.h * scale;
-    const finalX = center + (cover.x - center) * scale + offset.x * ratio;
-    const finalY = center + (cover.y - center) * scale + offset.y * ratio;
-
-    ctx.drawImage(photo, finalX, finalY, finalW, finalH);
-
-    const frame = new Image();
-    frame.src = FRAME_SRC;
-    await new Promise((r) => (frame.onload = r));
-    ctx.drawImage(frame, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
-
-    const a = document.createElement("a");
-    a.href = canvas.toDataURL("image/png");
-    a.download = "miscion-camp-2026.png";
-    a.click();
-
-    setIsDownloading(false);
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "miscion-camp-2026.png";
+      a.click();
+    } finally {
+      setIsDownloading(false);
+    }
   }, [photoSrc, scale, offset]);
+
+  // Rect d'aperçu recalculé à chaque render à partir de la même fonction
+  const containerSize = containerRef.current?.offsetWidth || 0;
+  const previewRect =
+    photoSrc && photoDims.w && containerSize
+      ? computeDrawRect(photoDims.w, photoDims.h, containerSize)
+      : null;
 
   return (
     <main className="min-h-screen bg-cream px-6 py-24 md:py-32">
@@ -244,7 +286,8 @@ export default function VisuelPage() {
               transition={{ duration: 0.5 }}
               className="space-y-4"
             >
-              {/* Aperçu interactif — image libre, aucun crop CSS */}
+              {/* Aperçu interactif — géométrie pilotée par computeDrawRect,
+                  identique pixel pour pixel à ce qui sera exporté. */}
               <div
                 ref={containerRef}
                 onPointerDown={onPointerDown}
@@ -253,24 +296,20 @@ export default function VisuelPage() {
                 onPointerCancel={onPointerUp}
                 className="relative aspect-square rounded-2xl overflow-hidden bg-dark touch-none select-none cursor-grab active:cursor-grabbing"
               >
-                {/*
-                  min-w-full min-h-full w-auto h-auto max-w-none :
-                  la photo couvre le conteneur en préservant son ratio,
-                  sans object-cover CSS — donc le DOM element est entier,
-                  draggable dans toutes les directions sans blocage.
-                */}
-                <img
-                  src={photoSrc}
-                  alt="Ta photo"
-                  draggable={false}
-                  className="absolute min-w-full min-h-full w-auto h-auto max-w-none pointer-events-none"
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    transform: `translate(calc(-50% + ${offset.x}px), calc(-50% + ${offset.y}px)) scale(${scale})`,
-                    transformOrigin: "center",
-                  }}
-                />
+                {previewRect && (
+                  <img
+                    src={photoSrc}
+                    alt="Ta photo"
+                    draggable={false}
+                    className="absolute pointer-events-none max-w-none"
+                    style={{
+                      left: previewRect.x,
+                      top: previewRect.y,
+                      width: previewRect.w,
+                      height: previewRect.h,
+                    }}
+                  />
+                )}
 
                 {/* Frame par-dessus */}
                 <img
@@ -361,7 +400,7 @@ export default function VisuelPage() {
               </div>
 
               <p className="font-body text-dark/40 text-xs text-center">
-                Visuel en 1080×1080px · Parfait pour WhatsApp & Instagram
+                Visuel en 2160×2160px · Parfait pour WhatsApp & Instagram
               </p>
             </motion.div>
           )}
