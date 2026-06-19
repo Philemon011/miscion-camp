@@ -13,6 +13,7 @@ import FAQ from "@/components/sections/FAQ";
 import Footer from "@/components/sections/Footer";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import Tshirt from "@/components/sections/Tshirt";
 
 export default function Home() {
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function Home() {
       <Inscription />
       <Temoignages/>
       <Galerie />
+      <Tshirt />
       <FAQ />
       <Footer />
     </main>
