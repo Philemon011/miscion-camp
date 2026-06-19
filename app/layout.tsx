@@ -3,6 +3,8 @@ import { gilroy, anton } from "./fonts";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
+const BASE_URL = "https://miscion-camp.vercel.app";
+
 export const metadata: Metadata = {
   title: "MISCION CAMP 2026 — Les Aigles de la Nouvelle Saison",
   description:
@@ -18,21 +20,23 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "MISCION" }],
   creator: "MISCION",
-  metadataBase: new URL("https://miscion-camp.vercel.app"),
+  metadataBase: new URL(BASE_URL),
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://miscion-camp.vercel.app",
+    url: BASE_URL,
     siteName: "MISCION CAMP 2026",
     title: "MISCION CAMP 2026 — Les Aigles de la Nouvelle Saison",
     description:
       "Du 03 au 08 août 2026 à Cotonou. Rejoins des centaines de jeunes pour 6 jours d'expérience spirituelle, de connexion et de transformation.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: `${BASE_URL}/og-image.jpg`,
+        secureUrl: `${BASE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "MISCION CAMP 2026 — Les Aigles de la Nouvelle Saison",
+        type: "image/jpeg",
       },
     ],
   },
@@ -41,19 +45,15 @@ export const metadata: Metadata = {
     title: "MISCION CAMP 2026 — Les Aigles de la Nouvelle Saison",
     description:
       "Du 03 au 08 août 2026 à Cotonou. 6 jours pour t'élever au-dessus de tout ce qui t'a retenu.",
-    images: ["/og-image.jpg"],
+    images: [`${BASE_URL}/og-image.jpg`],
   },
-
-
   icons: {
-  icon: [
-    { url: "/favicon.ico" },
-    { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-  ],
-  apple: [
-    { url: "/apple-touch-icon.png", sizes: "180x180" },
-  ],
-},
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({
