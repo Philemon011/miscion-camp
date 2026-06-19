@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { X, Menu } from "lucide-react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Vision", href: "vision" },
@@ -20,12 +21,12 @@ const menuVariants: Variants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
 };
 
-const linkVariants : Variants = {
+const linkVariants: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
 };
 
-const linkItem : Variants = {
+const linkItem: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
 };
@@ -33,6 +34,8 @@ const linkItem : Variants = {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -41,12 +44,16 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id: string) => {
+  setOpen(false);
+  if (pathname === "/") {
+    // On est sur la home — scroll direct
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-    setOpen(false);
-  };
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else {
+    // On est sur une autre page — navigue vers home + ancre
+    router.push(`/#${id}`);
+  }
+};
 
   return (
     <>
@@ -54,20 +61,29 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between transition-all duration-500 ${
-          scrolled ? "bg-cream/90 backdrop-blur-md shadow-sm" : "bg-transparent"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between transition-all duration-500 ${scrolled ? "bg-cream/90 backdrop-blur-md shadow-sm" : "bg-transparent"
+          }`}
       >
         {/* Logo PNG */}
-        <button onClick={() => scrollToSection("hero")} className="relative h-9 w-32">
-          <Image
-            src="/images/logo.png"
-            alt="MISCION Logo"
-            fill
-            className="object-contain object-left"
-            priority
-          />
-        </button>
+        <button
+  onClick={() => {
+    setOpen(false);
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
+  }}
+  className="relative h-8 w-24 md:h-9 md:w-32 shrink-0"
+>
+  <Image
+    src="/images/logo.png"
+    alt="MISCION Logo"
+    fill
+    className="object-contain object-left"
+    priority
+  />
+</button>
 
         {/* Liens desktop */}
         <div className="hidden md:flex items-center gap-8">
@@ -83,7 +99,13 @@ export default function Navbar() {
         </div>
 
         {/* CTA + hamburger */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 shrink-0">
+
+          <a href="/visuel"
+            className="hidden md:inline-flex border-2 border-dark/20 text-dark font-body font-medium text-sm px-4 py-2 rounded-full hover:border-dark transition-colors duration-300">
+            Mon visuel
+          </a>
+
           <motion.a
             href="TON_LIEN_GOOGLE_FORM"
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255,189,63,0.5)" }}
@@ -134,13 +156,25 @@ export default function Navbar() {
               ))}
 
               <motion.li variants={linkItem}>
-                
-                <a  href="TON_LIEN_GOOGLE_FORM"
+
+                <a href="/visuel"
+                  onClick={() => setOpen(false)}
+                  className="font-display uppercase text-dark text-4xl hover:text-secondary transition-colors duration-300"
+                >
+                  Mon visuel
+                </a>
+              </motion.li>
+
+              <motion.li variants={linkItem}>
+
+                <a href="TON_LIEN_GOOGLE_FORM"
+                  onClick={() => setOpen(false)}
                   className="inline-flex bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full mt-4"
                 >
                   Je m'inscris
                 </a>
               </motion.li>
+
             </motion.ul>
           </motion.div>
         )}
