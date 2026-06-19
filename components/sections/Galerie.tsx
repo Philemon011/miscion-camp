@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const row1 = [
-    "/images/img8.jpg",
+    "/images/img8.png",
     "/images/img5.jpg",
     "/images/img6.jpg",
     "/images/img2.jpg",
