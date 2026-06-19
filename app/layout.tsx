@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { gilroy, anton } from "./fonts";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const BASE_URL = "https://miscion-camp.vercel.app";
 
@@ -56,16 +57,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${gilroy.variable} ${anton.variable}`}>
       <body className="overflow-x-hidden">
         <Navbar />
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );
