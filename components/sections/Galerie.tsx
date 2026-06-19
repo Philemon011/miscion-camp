@@ -16,7 +16,7 @@ const row2 = [
     "/images/img2.jpg",
     "/images/img5.jpg",
     "/images/img6.jpg",
-    "/images/img8.jpg",
+    "/images/img8.png",
     "/images/img7.jpg",
     "/images/img3.jpg",
     "/images/img4.jpg",
@@ -27,7 +27,7 @@ const row3 = [
     "/images/img2.jpg",
     "/images/img3.jpg",
     "/images/img4.jpg",
-    "/images/img8.jpg",
+    "/images/img8.png",
 ];
 
 function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direction: "left" | "right"; speed?: number }) {
