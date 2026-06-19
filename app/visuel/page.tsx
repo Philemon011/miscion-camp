@@ -398,6 +398,7 @@ export default function VisuelPage() {
                   Changer de photo
                 </motion.button>
               </div>
+              
 
               <p className="font-body text-dark/40 text-xs text-center">
                 Visuel en 2160×2160px · Parfait pour WhatsApp & Instagram
