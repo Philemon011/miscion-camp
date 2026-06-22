@@ -4,16 +4,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const row1 = [
-    "/images/img2.png",
-    "/images/img3.png",
-    "/images/img4.png",
-    "/images/img5.png",
-    "/images/img14.png",
+    "/images/img2.jpg",
+    "/images/img3.jpg",
+    "/images/img4.jpg",
+    "/images/img5.jpg",
+    "/images/img14.jpg",
 ];
 const row2 = [
     "/images/img6.jpg",
     "/images/img7.jpg",
-    "/images/img8.jpg",
+    "/images/img8.png",
     "/images/img9.jpg",
     "/images/img15.jpg",
 ];
