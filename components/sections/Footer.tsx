@@ -129,7 +129,7 @@ export default function Footer() {
             © 2026 MISCION · Tous droits réservés
           </p>
           <p className="font-body text-cream/20 text-xs">
-            Conçu avec soin pour la jeunesse de Cotonou
+            Conçu avec soin par la com MISCION
           </p>
         </motion.div>
       </motion.div>
