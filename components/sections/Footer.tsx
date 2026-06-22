@@ -65,7 +65,7 @@ export default function Footer() {
               Les Aigles de la Nouvelle Saison · 03 – 08 Août 2026 · Cotonou, Bénin
             </p>
             <motion.a
-              href="TON_LIEN_GOOGLE_FORM"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSd-bt7jAF14RwhFxicSLv3DWtkAsr9bon0D2qyLP0ZOh6_mUg/viewform?usp=dialog"
               whileHover={{ scale: 1.05, boxShadow: "0 0 24px rgba(255,189,63,0.5)" }}
               transition={{ duration: 0.3 }}
               className="inline-block bg-cta text-dark font-body font-semibold text-sm px-6 py-3 rounded-full mt-2"

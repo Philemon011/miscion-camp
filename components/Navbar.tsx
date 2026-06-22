@@ -108,7 +108,7 @@ export default function Navbar() {
           </a>
 
           <motion.a
-            href="TON_LIEN_GOOGLE_FORM"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSd-bt7jAF14RwhFxicSLv3DWtkAsr9bon0D2qyLP0ZOh6_mUg/viewform?usp=dialog"
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(255,189,63,0.5)" }}
             transition={{ duration: 0.3 }}
             className="hidden sm:inline-flex bg-cta text-dark font-body font-semibold text-sm px-5 py-2.5 rounded-full"
@@ -168,7 +168,7 @@ export default function Navbar() {
 
               <motion.li variants={linkItem}>
 
-                <a href="TON_LIEN_GOOGLE_FORM"
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-bt7jAF14RwhFxicSLv3DWtkAsr9bon0D2qyLP0ZOh6_mUg/viewform?usp=dialog"
                   onClick={() => setOpen(false)}
                   className="inline-flex bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full mt-4"
                 >

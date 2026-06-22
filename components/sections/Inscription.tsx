@@ -23,7 +23,7 @@ export default function Inscription() {
         </motion.p>
 
         <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-          <a href="TON_LIEN_GOOGLE_FORM"
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSd-bt7jAF14RwhFxicSLv3DWtkAsr9bon0D2qyLP0ZOh6_mUg/viewform?usp=dialog"
             className="bg-cta text-dark font-body font-semibold px-10 py-4 rounded-full transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,189,63,0.5)]">
             Je m'inscris maintenant
           </a>
