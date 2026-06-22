@@ -4,30 +4,26 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const row1 = [
-    "/images/img8.png",
-    "/images/img5.jpg",
-    "/images/img6.jpg",
-    "/images/img2.jpg",
-    "/images/img3.jpg",
-    "/images/img4.jpg",
-    "/images/img7.jpg",
+    "/images/img2.png",
+    "/images/img3.png",
+    "/images/img4.png",
+    "/images/img5.png",
+    "/images/img14.png",
 ];
 const row2 = [
-    "/images/img2.jpg",
-    "/images/img5.jpg",
     "/images/img6.jpg",
-    "/images/img8.png",
     "/images/img7.jpg",
-    "/images/img3.jpg",
-    "/images/img4.jpg",
+    "/images/img8.jpg",
+    "/images/img9.jpg",
+    "/images/img15.jpg",
 ];
 const row3 = [
-    "/images/img6.jpg",
-    "/images/img7.jpg",
-    "/images/img2.jpg",
-    "/images/img3.jpg",
-    "/images/img4.jpg",
-    "/images/img8.png",
+    "/images/img10.jpg",
+    "/images/img11.jpg",
+    "/images/img12.jpg",
+    "/images/img13.jpg",
+    "/images/img16.jpg",
+    "/images/img17.jpg",
 ];
 
 function MarqueeRow({ images, direction, speed = 40 }: { images: string[]; direction: "left" | "right"; speed?: number }) {
