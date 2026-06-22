@@ -39,7 +39,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-          <motion.a href="TON_LIEN_GOOGLE_FORM"
+          <motion.a href="https://docs.google.com/forms/d/e/1FAIpQLSd-bt7jAF14RwhFxicSLv3DWtkAsr9bon0D2qyLP0ZOh6_mUg/viewform?usp=dialog"
             whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,189,63,0.6)" }}
             transition={{ duration: 0.3 }}
             className="bg-cta text-dark font-body font-semibold px-8 py-4 rounded-full">
